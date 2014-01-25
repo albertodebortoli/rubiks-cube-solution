@@ -1,5 +1,5 @@
 # Rubik's Cube solution
-### The simplest, easiest and quickest way to learn how to solve a Rubik's Cube.
+### The simplest, easiest and quickest way to learn how to solve the Rubik's Cube.
 
 
 ![rubik header][1]
@@ -8,7 +8,7 @@ by [Alberto De Bortoli][2]
 [@albertodebo][3]
 [github.com/albertodebortoli][4]
 
-v0.1-beta
+v0.2-beta
 
 25th January 2013
  
@@ -40,7 +40,7 @@ Here I explain my technique to solve the Rubik's Cube. I consider it the simples
               --- --- --- 
 ```
  
-*fig. 1*: This is the map of a cube. *y = yellow*, *r = red*, *b = blue*, *g = green*, *w = white*, *o = orange*
+*fig. 1*: This is the map of a cube. *y = yellow*, *r = red*, *b = blue*, *g = green*, *w = white*, *o = orange*.
 
 We name *pivot face* the face of the cube to use as reference for the sequence of moves we are going to apply. You should keep this face always in front of your eyes while learning.
 
@@ -66,11 +66,11 @@ Here are all the available moves that can be applied to the cube. Consider the r
 
 #Algorithm 
  
-1. complete a face (colors on the edges must be correct)
-2. fix centers on each face (max 2 moves)
-3. fix angles of opposite face to face at 1
-4. fix colors of angles of opposite face to face at 1
-5. fix remaining edged rotating them clockwise or counterclockwise 3 by 3
+1. Complete a face (colors on the edges must be correct)
+2. Fix centers on each face (max 2 moves)
+3. Fix the angles of the face opposite to the completed one
+4. Fix the colors of angles of the face opposite to the completed one
+5. Fix the remaining edges
 
 ### 1. Complete a face
 
@@ -80,9 +80,9 @@ Easy, just a little practice. The obtained face is the pivot.
 
 Trivial.
 
-### 3. Fix angles of opposite face to face at 1
+### 3. Fix the angles of the face opposite to the completed one
 
-If angles of face opposite to the pivot face are not in the correct position regardless the colors, swaps are needed between *7b-7w-9o*, *9w-9g-7o*, *3y-3g-1o*, *1b-1y-3o*. 
+If the angles of the face opposite to the *pivot face* are not in the correct position regardless of the colors, swaps are needed between *7b-7w-9o*, *9w-9g-7o*, *3y-3g-1o*, *1b-1y-3o*. 
 
 Moves:
 
@@ -94,19 +94,19 @@ Moves:
 
 Algorithm: 
 
-* put the former pivot face up (in the example pivot face goes from red to white): simply rotate the cube to change the pivot face, no moves are needed;
+* put the former *pivot face* face up (in the example *pivot face* goes from red to white): simply rotate the cube to change the *pivot face*, no moves are needed;
 
-* repeat *comboAngles_right* (or the symmetric one *comboAngles_left*) as long as the angles are put in the correct places regardless the colors.
+* repeat *comboAngles_right* (or the symmetric one *comboAngles_left*) as long as the angles are put in the correct places regardless of the colors.
 
-N.B. These moves don't break the former pivot face. 
+N.B. These moves don't break the former *pivot face*. 
 
-### 4. Fix colors of angles of opposite face to face at 1 
+### 4. Fix the colors of angles of the face opposite to the completed one
 
-Let's give weights to angles of the face opposite to the former pivot one.
+Let's give weights to the angles of the face opposite to the completed one.
 
 * **0**: if the angle has colors already in place
-* **1left**, **2right**: if the angle has colors shifted on the right by 1
-* **1right**, **2left**: if the angle has colors shifted on the left by 1
+* **1left**: if the angle has colors shifted on the right by 1
+* **1right**: if the angle has colors shifted on the left by 1
 
 Moves: 
 
@@ -118,7 +118,7 @@ Moves:
 *RIGHT_down*, *DOWN_right* (x2) (o *DOWN_left* x2), *RIGHT_up*, 
 *DOWN_right* (x2) (or *DOWN_left* x2)
 
-Examples given angle *7b-7w-9o* bottom right in the pivot face. After moves state is: 
+Examples given bottom right angle *7b-7w-9o* in the *pivot face*. The final state will be: 
 
 ```
 angle     weight  after cc_right  after cc_left 
@@ -142,17 +142,17 @@ In every case an angle remains unaltered.
 
 Algorithm:
 
-* put the former pivot face up (in the example pivot face goes from red to white): simply rotate the cube to change the pivot face, no moves are needed;
+* put the former *pivot face* face up (in the example *pivot face* goes from red to white): simply rotate the cube to change the *pivot face*, no moves are needed;
 
-* apply *comboColors_right* (or the symmetric one *comboColors_left*) as long as the angles have 0 weights.
+* apply *comboColors_right* (or the symmetric one *comboColors_left*) as long as the angles have weights equal to 0.
 
 *comboColors_right* and *comboColors_left* are symmetric, both keep an angle unaltered and increase or decrease the weight of the other 3 angles by 1 (from 1right to 1left or from 1left to 1right). 
 
-This is tough, let's practice it.
+This is tough, keep practicing it.
  
-### 5. Fix remaining edged rotating them clockwise or counterclockwise 3 by 3
+### 5. Fix the remaining edges
 
-At this point only the edge are to put in place. We are going to do it 3 by 3 clockwise or counterclockwise. 8b-4b-2b, 2g-6g-8g, 4o-2o-6o. We can reach that using combinations of both *comboColors_right* and *comboColors_left*. 
+At this point only the edges need to be placed in the correct positions. We are going to do it moving the edges 3 by 3 clockwise or counterclockwise. We will use combinations of both *comboColors_right* and *comboColors_left*. 
 
 Example:
 Given a solved face, rotating 8b-4b-2b, the starting pivot will be as in *fig. 2*.
@@ -167,23 +167,27 @@ Given a solved face, rotating 8b-4b-2b, the starting pivot will be as in *fig. 2
  --- --- ---       --- --- ---       --- --- --- 
 ```
  
-*fig. 2*: Simply rotate the cube to change the pivot face, no moves are needed.
+*fig. 2*: Simply rotate the cube to change the *pivot face*, no moves are needed.
+
+**Optimal state**: given 3 edges to fix, the application of the following algorithm fixes all of them
+
+**Sub-optimal state**: given 3 edges to fix, the application of the following algorithm fixes 1 or 2 of them
 
 Now we need to move edges clockwise.
 
-Algorithm to move edges clockwise:
+Algorithm to move the edges clockwise:
 
-1. apply *comboColors_right* saving last 2 moves;
+1. apply all the moves in *comboColors_right* but the last 2;
 2. rotate the cube on the left, no moves are necessary;
-3. apply *comboColors_left* saving last 2 moves.
+3. apply all the moves in *comboColors_left* but the last 2.
 
-Algorithm to move edges counterclockwise:
+Algorithm to move the edges counterclockwise:
 
-1. apply *comboColors_left* saving last 2 moves;
+1. apply all the moves in *comboColors_left* but the last 2;
 2. rotate the cube on the right, no moves are necessary;
-3. apply *comboColors_right* saving last 2 moves.
+3. apply all the moves in *comboColors_right* but the last 2.
 
-Hard thing here is that it is likely not to have optimal state that allow to fix edges simply using the algorithm described above, so you might want to apply some pre-moves to create the state required to apply the algorithm.
+Hard thing here is that it is likely not to have optimal state that allow to fix edges simply using the algorithm described above, so you might want to apply some pre-moves to reach an optimal or sub-optimal state required to apply the algorithm.
 
 This is even more tough than the previous step.
 
@@ -200,8 +204,8 @@ Swapping centers and something more...
  
 **Algorithm**:
 
-1. apply the chosen move on the pivot face 
-2. turn around the cube by 90 degrees in the chosen direction keeping the pivot face in front 
+1. apply the chosen move on the *pivot face* 
+2. turn around the cube by 90 degrees in the chosen direction keeping the *pivot face* in front 
 3. repeat 1) and 2) three times
 4. *RIGHT_DOWN* (x2) e *DOWN_right* (x2) 
  
