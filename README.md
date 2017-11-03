@@ -14,7 +14,9 @@ v0.2-beta
  
 # Introduction
  
-Here I explain my technique to solve the Rubik's Cube. I consider it the simplest, easiest and quickest way to learn-how-to-solve a cube. Mastering this technique you'll be able to solve a cube in c.a. 1 minute and 40 seconds. Not so good but still decent to impress someone. Practice and you'll master it. Follow rigorously every single word in this guide, if you miss a sentence or a step you're not going to do it and you'll give up shortly.
+Here I explain my technique to solve the Rubik's Cube. I consider it the simplest, easiest and quickest way to learn-how-to-solve a cube. Mastering this technique you'll be able to solve a cube in c.a. 1 minute and 40 seconds.
+Here is a [video](https://www.youtube.com/watch?v=3YLt8ULE2jc) where I made it in 1:45.5.
+Not too good but still decent to impress someone. Practice and you'll master it. Follow rigorously every single word in this guide, if you miss a sentence or a step you're not going to do it and you'll give up shortly.
 
 ```
               --- --- --- 
